@@ -1,24 +1,15 @@
-import express from "express";
+import express from 'express';
 
-import {
-  deleteEmails,
-  getEmails,
-  moveEmailsToBin,
-  saveSentEmails,
-  toogleStarredEmails,
-} from "../controllers/email-controllers.js";
+import { saveSendEmails, getEmails, toggleStarredEmail, deleteEmails, 
+    moveEmailsToBin } from '../controller/email-controller.js';
 
 const routes = express.Router();
 
-routes.post("/save", saveSentEmails);
+routes.post('/save', saveSendEmails);
+routes.post('/save-draft', saveSendEmails);
+routes.get('/emails/:type', getEmails);
+routes.post('/starred', toggleStarredEmail);
+routes.delete('/delete', deleteEmails);
+routes.post('/bin', moveEmailsToBin);
 
-routes.get("/emails/:type", getEmails);
-
-routes.post("/save-draft", saveSentEmails);
-
-routes.post("/bin", moveEmailsToBin);
-
-routes.post("/starred", toogleStarredEmails);
-
-routes.delete("/delete", deleteEmails);
 export default routes;

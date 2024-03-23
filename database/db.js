@@ -1,18 +1,20 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-export function dbConnection() {
-  const params = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
-  try {
-   // mongoose.connect(process.env.DB_URL, params);
-   mongoose.connect('mongodb+srv://kukila:kukila18@cluster0.7l6vwvh.mongodb.net/?retryWrites=true&w=majority')
-    console.log("Database connected successfully");
-  } catch (error) {
-    console.log("Error occured while connecting database", error.message);
-  }
+const USERNAME = process.env.DB_USERNAME;
+const PASSWORD = process.env.DB_PASSWORD; 
+
+const Connection = () => {
+    const DB_URI = `mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.xjpgzsp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+    try {
+        mongoose.connect(DB_URI, { useNewUrlParser: true });
+        mongoose.set('strictQuery', false);
+        console.log('Database connected sucessfully');
+    } catch (error) {
+        console.log('Error while connecting with the database ', error.message)
+    }
 }
+
+export default Connection;
